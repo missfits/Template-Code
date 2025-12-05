@@ -32,5 +32,8 @@ public final class Constants {
     public static final double DRIVE_KD = 0;
     public static final double DRIVE_KS = 0;
     public static final double DRIVE_KV = 0.124;
+    public static final double DRIVE_KA = 0;
+
+    public static final double WHEEL_RADIUS_FUDGE_FACTOR = 1.0;
   }
 }
