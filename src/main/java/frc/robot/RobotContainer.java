@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public record JoystickVals(double x, double y) {}
+    
   private final SendableChooser<Command> m_autoChooser; // Sendable chooser that holds the autos
 
   private final CommandXboxController m_driverController =

@@ -15,6 +15,13 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+
+    // Joystick deadband values
+    public static final double DRIVE_JOYSTICK_DEADBAND = 0.1;
+    public static final double STEER_JOYSTICK_DEADBAND = 0.1;
+
+    // Slowmode factor for reduced speed control
+    public static final double SLOWMODE_FACTOR = 0.3;
   }
 
   public static class DrivetrainConstants {
