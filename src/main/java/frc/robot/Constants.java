@@ -16,4 +16,21 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class DrivetrainConstants {
+    // Steer motor PID and feedforward gains
+    public static final double STEER_KP = 100;
+    public static final double STEER_KI = 0;
+    public static final double STEER_KD = 0.5;
+    public static final double STEER_KS = 0.1;
+    public static final double STEER_KV = 2.66;
+    public static final double STEER_KA = 0;
+
+    // Drive motor PID and feedforward gains
+    public static final double DRIVE_KP = 0.1;
+    public static final double DRIVE_KI = 0;
+    public static final double DRIVE_KD = 0;
+    public static final double DRIVE_KS = 0;
+    public static final double DRIVE_KV = 0.124;
+  }
 }
