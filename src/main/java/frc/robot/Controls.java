@@ -6,25 +6,25 @@ import frc.robot.Constants.OperatorConstants;
 
 public class Controls {
 
-    public static JoystickVals inputShape(JoystickVals input, boolean transJoystick) {
-        return inputShape(input.x(), input.y(), transJoystick);
+    public static JoystickVals inputShape(JoystickVals input, boolean transJoystick, boolean slowmode) {
+        return inputShape(input.x(), input.y(), transJoystick, slowmode);
     }
 
-    public static JoystickVals inputShape(double x, double y, boolean transJoystick) {
+    public static JoystickVals inputShape(double x, double y, boolean transJoystick, boolean slowmode) {
         double deadband;
         if (transJoystick) {
             deadband = OperatorConstants.DRIVE_JOYSTICK_DEADBAND;
         } else {
             deadband = OperatorConstants.STEER_JOYSTICK_DEADBAND;
         }
-        return inputShape(x, y, deadband);
+        return inputShape(x, y, deadband, slowmode);
     }
 
     /**
      * if x and y within deadband, x=0 and y=0
      * square x and y joystick values while maintaining original angle 
     */
-    public static JoystickVals inputShape(double x, double y, double deadband) {
+    public static JoystickVals inputShape(double x, double y, double deadband, boolean slowmode) {
         // manipulate hypotenuse length to maintain angle
         double hypot = Math.hypot(x, y);
         // apply deadband
@@ -38,9 +38,14 @@ public class Controls {
             scaleFactor = deadbandedValue * Math.abs(deadbandedValue) / hypot; 
         }
 
+        if (slowmode) {
+            x = x * OperatorConstants.SLOWMODE_FACTOR;
+            y = y * OperatorConstants.SLOWMODE_FACTOR;
+        }
+
         return new JoystickVals(x * scaleFactor, y * scaleFactor);
     }
-
+    
     public static JoystickVals adjustSlowmode(JoystickVals input) {
         return new JoystickVals(input.x() * OperatorConstants.SLOWMODE_FACTOR, input.y() * OperatorConstants.SLOWMODE_FACTOR);
     }
