@@ -40,19 +40,18 @@ public class DrivetrainCommandFactory {
     // Note that X is defined as forward according to WPILib convention,
     // and Y is defined as to the left according to WPILib convention.
     public Command defaultDrive(JoystickVals transVals, JoystickVals rotVals, boolean slowmode) {
-
-        SmartDashboard.putNumber("controller/left x", transVals.x());
-        SmartDashboard.putNumber("controller/left y", transVals.y());
-        SmartDashboard.putNumber("controller/right x", rotVals.x());
-        SmartDashboard.putNumber("controller/right y", rotVals.y());
-        
         JoystickVals shapedTrans = Controls.inputShape(transVals.x(), transVals.y(), true, slowmode);
         JoystickVals shapedRot = Controls.inputShape(rotVals.x(), rotVals.y(), false, slowmode);
 
-        return m_drivetrain.getCommandFromRequest(() -> 
-            m_drive.withVelocityX(-shapedTrans.y() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive forward with negative Y (forward)
-                .withVelocityY(-shapedTrans.x() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive left with negative X (left)
-                .withRotationalRate(-shapedRot.x() * DrivetrainConstants.MAX_STEER_SPEED) // Drive counterclockwise with negative X (left)
+        SmartDashboard.putNumber("controller/translation x", -shapedTrans.y());
+        SmartDashboard.putNumber("controller/translation y", -shapedTrans.x());
+        SmartDashboard.putNumber("controller/rotation x", -shapedRot.x());
+        SmartDashboard.putNumber("controller/rotation y", -shapedRot.y());
+
+        return m_drivetrain.getCommandFromRequest(() ->
+            m_drive.withVelocityX(-shapedTrans.y() * DrivetrainConstants.MAX_TRANSLATION_SPEED) // Drive forward with negative Y (forward)
+                .withVelocityY(-shapedTrans.x() * DrivetrainConstants.MAX_TRANSLATION_SPEED) // Drive left with negative X (left)
+                .withRotationalRate(-shapedRot.x() * DrivetrainConstants.MAX_ROTATION_SPEED) // Drive counterclockwise with negative X (left)
         );
     }
 
@@ -60,15 +59,15 @@ public class DrivetrainCommandFactory {
     public Command snapToAngle(CommandXboxController joystick, double angle){
         SmartDashboard.putNumber("drivetrain/snap to angle", angle);
         JoystickVals shapedValues = Controls.inputShape(joystick.getLeftX(), joystick.getLeftY(), true, false);
-        return m_drivetrain.getCommandFromRequest(() -> 
-        m_driveFacingAngle.withVelocityX(-shapedValues.y() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive forward with negative Y (forward)
-            .withVelocityY(-shapedValues.x() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive left with negative X (left)
+        return m_drivetrain.getCommandFromRequest(() ->
+        m_driveFacingAngle.withVelocityX(-shapedValues.y() * DrivetrainConstants.MAX_TRANSLATION_SPEED) // Drive forward with negative Y (forward)
+            .withVelocityY(-shapedValues.x() * DrivetrainConstants.MAX_TRANSLATION_SPEED) // Drive left with negative X (left)
             .withTargetDirection(Rotation2d.fromDegrees(angle))
         );
     }
 
     public void setHeadingController(){
-        m_driveFacingAngle.HeadingController = new PhoenixPIDController(DrivetrainConstants.STEER_kP, DrivetrainConstants.STEER_kI, DrivetrainConstants.STEER_kD);
+        m_driveFacingAngle.HeadingController = new PhoenixPIDController(DrivetrainConstants.ROTATION_KP, DrivetrainConstants.ROTATION_KI, DrivetrainConstants.ROTATION_KD);
         m_driveFacingAngle.HeadingController.enableContinuousInput(0, 2*Math.PI);
     }
 

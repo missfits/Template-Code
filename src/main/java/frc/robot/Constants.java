@@ -48,12 +48,12 @@ public final class Constants {
     public static final double WHEEL_RADIUS_FUDGE_FACTOR = 1.0;
 
     // Max speeds for drivetrain
-    public static final double MAX_DRIVE_SPEED = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    public static final double MAX_STEER_SPEED = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+    public static final double MAX_TRANSLATION_SPEED = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    public static final double MAX_ROTATION_SPEED = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
-    // Steer heading controller PID gains
-    public static final double STEER_kP = 10.0;
-    public static final double STEER_kI = 0.0;
-    public static final double STEER_kD = 0.0;
+    // Rotation heading controller PID gains
+    public static final double ROTATION_KP = 10.0;
+    public static final double ROTATION_KI = 0.0;
+    public static final double ROTATION_KD = 0.0;
   }
 }
