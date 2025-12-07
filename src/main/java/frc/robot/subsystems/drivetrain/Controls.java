@@ -1,7 +1,8 @@
-package frc.robot;
+package frc.robot.subsystems.drivetrain;
 
 import edu.wpi.first.math.MathUtil;
 import frc.robot.RobotContainer.JoystickVals;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.OperatorConstants;
 
 public class Controls {

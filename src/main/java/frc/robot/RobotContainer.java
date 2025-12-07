@@ -6,11 +6,8 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.generated.TunerConstants;
-
-import frc.robot.subsystems.CommandSwerveDrivetrain;
-
-import frc.robot.subsystems.DrivetrainCommandFactory;
-
+import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
+import frc.robot.subsystems.drivetrain.DrivetrainCommandFactory;
 import frc.robot.Constants.OperatorConstants;
 
 import edu.wpi.first.wpilibj.DataLogManager;

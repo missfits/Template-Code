@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivetrain;
 
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.utility.PhoenixPIDController;
@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.Controls;
 import frc.robot.RobotContainer.JoystickVals;
 
 public class DrivetrainCommandFactory {
@@ -58,12 +57,14 @@ public class DrivetrainCommandFactory {
     }
 
     // ----- SNAP TO ANGLE -----
-    public FieldCentricFacingAngle snapToAngle(CommandXboxController joystick, double angle){
+    public Command snapToAngle(CommandXboxController joystick, double angle){
         SmartDashboard.putNumber("drivetrain/snap to angle", angle);
         JoystickVals shapedValues = Controls.inputShape(joystick.getLeftX(), joystick.getLeftY(), true, false);
-        return m_driveFacingAngle.withVelocityX(-shapedValues.y() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive forward with negative Y (forward)
+        return m_drivetrain.getCommandFromRequest(() -> 
+        m_driveFacingAngle.withVelocityX(-shapedValues.y() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive forward with negative Y (forward)
             .withVelocityY(-shapedValues.x() * DrivetrainConstants.MAX_DRIVE_SPEED) // Drive left with negative X (left)
-            .withTargetDirection(Rotation2d.fromDegrees(angle));
+            .withTargetDirection(Rotation2d.fromDegrees(angle))
+        );
     }
 
     public void setHeadingController(){
