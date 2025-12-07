@@ -69,8 +69,8 @@ public class RobotContainer {
         false)
     );
 
-    // drive in slowmode
-    m_driverJoystick.rightTrigger().and(m_driverJoystick.a().negate()).whileTrue(
+    // Drive in slowmode when right trigger is pressed
+    m_driverJoystick.rightTrigger().whileTrue(
       m_drivetrainCommandFactory.defaultDrive(
         new JoystickVals(m_driverJoystick.getLeftX(), m_driverJoystick.getLeftY()),
         new JoystickVals(m_driverJoystick.getRightX(), m_driverJoystick.getRightY()),
