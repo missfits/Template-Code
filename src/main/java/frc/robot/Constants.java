@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.*;
+
+import frc.robot.generated.TunerConstants;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -42,5 +46,14 @@ public final class Constants {
     public static final double DRIVE_KA = 0;
 
     public static final double WHEEL_RADIUS_FUDGE_FACTOR = 1.0;
+
+    // Max speeds for drivetrain
+    public static final double MAX_DRIVE_SPEED = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    public static final double MAX_STEER_SPEED = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+
+    // Steer heading controller PID gains
+    public static final double STEER_kP = 10.0;
+    public static final double STEER_kI = 0.0;
+    public static final double STEER_kD = 0.0;
   }
 }
