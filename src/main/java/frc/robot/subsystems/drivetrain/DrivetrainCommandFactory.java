@@ -73,7 +73,7 @@ public class DrivetrainCommandFactory {
 
     public Command resetPigeon() {
         return new InstantCommand(
-            () -> m_drivetrain.getPigeon2().reset()
+            () -> m_drivetrain.resetRotation(Rotation2d.fromDegrees(0))
         );
     }
 
