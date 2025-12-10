@@ -71,10 +71,8 @@ public class DrivetrainCommandFactory {
         m_driveFacingAngle.HeadingController.enableContinuousInput(0, 2*Math.PI);
     }
 
-    public Command resetPigeon() {
-        return new InstantCommand(
-            () -> m_drivetrain.resetRotation(Rotation2d.fromDegrees(0))
-        );
+    public Command resetRotation() {
+        return m_drivetrain.setRotation(0);
     }
 
     // ----- POINT WHEELS IN X -----
