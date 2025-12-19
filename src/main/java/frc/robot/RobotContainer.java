@@ -4,12 +4,11 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
-
-import com.pathplanner.lib.auto.AutoBuilder;
+import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
+import frc.robot.subsystems.drivetrain.DrivetrainCommandFactory;
+import frc.robot.Constants.OperatorConstants;
 
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -19,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -26,13 +27,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  public record JoystickVals(double x, double y) {}
+
   private final SendableChooser<Command> m_autoChooser; // Sendable chooser that holds the autos
 
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
   // Subsystems
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
+  
+  // Command factories
+  private final DrivetrainCommandFactory m_drivetrainCommandFactory = new DrivetrainCommandFactory(m_drivetrain);
+
+  private final CommandXboxController m_driverJoystick =
+    new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems and commands. */
   public RobotContainer() {
@@ -54,7 +60,22 @@ public class RobotContainer {
    * Define trigger -> command mappings 
    */
   private void configureBindings() {
-    // Add bindings here
+    // Default drive
+    m_drivetrain.setDefaultCommand(
+      // Drivetrain will execute this command periodically
+      m_drivetrainCommandFactory.defaultDrive(
+        new JoystickVals(m_driverJoystick.getLeftX(), m_driverJoystick.getLeftY()),
+        new JoystickVals(m_driverJoystick.getRightX(), m_driverJoystick.getRightY()),
+        false)
+    );
+
+    // Drive in slowmode while right trigger is pressed
+    m_driverJoystick.rightTrigger().whileTrue(
+      m_drivetrainCommandFactory.defaultDrive(
+        new JoystickVals(m_driverJoystick.getLeftX(), m_driverJoystick.getLeftY()),
+        new JoystickVals(m_driverJoystick.getRightX(), m_driverJoystick.getRightY()),
+        true)
+    );
   }
 
   /**
