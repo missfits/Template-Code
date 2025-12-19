@@ -194,8 +194,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         return run(() -> this.setControl(requestSupplier.get()));
     }
 
-    public Command setRotation(double deg) {
-        return new InstantCommand(() -> resetRotation(Rotation2d.fromDegrees(deg)));
+    public void setRotation(double deg) {
+        resetRotation(Rotation2d.fromDegrees(deg));
     }
 
     /**

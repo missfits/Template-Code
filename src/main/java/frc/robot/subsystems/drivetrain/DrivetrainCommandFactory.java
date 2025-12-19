@@ -72,7 +72,7 @@ public class DrivetrainCommandFactory {
     }
 
     public Command resetRotation() {
-        return m_drivetrain.setRotation(0);
+        return new InstantCommand(() -> m_drivetrain.setRotation(0));
     }
 
     // ----- POINT WHEELS IN X -----
