@@ -1,11 +1,6 @@
 package frc.robot.subsystems.vision;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import java.util.*;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
