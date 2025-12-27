@@ -5,6 +5,10 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 
 import frc.robot.generated.TunerConstants;
 
@@ -58,11 +62,23 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-    public static final double MAX_POSE_AMBIGUITY = 0.2;
+
+    // --- vision utils ---
     public static final double MAX_VISION_POSE_DISTANCE = 1;
     public static final double MAX_VISION_POSE_Z = 0.1;
     public static final double MAX_VISION_POSE_ROLL = 0.05; // in radians
     public static final double MAX_VISION_POSE_PITCH = 0.05; // in radians
+
+    // --- localization camera ---
+    // default vision standard deviation
+    public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(6, 6, 4);
+    public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 0.3);
+
     public static final double VISION_DISTANCE_DISCARD = 10; 
+    public static final double MAX_POSE_AMBIGUITY = 0.2;
+    public static final double MAX_AVG_DIST_BETWEEN_LAST_EST_POSES = 0.3; // in meters 
+    public static final double MAX_AVG_SPEED_BETWEEN_LAST_EST_POSES = MAX_AVG_DIST_BETWEEN_LAST_EST_POSES * 50.;
+    public static final int NUM_LAST_EST_POSES = 3;
+
   }
 }
