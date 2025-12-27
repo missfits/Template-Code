@@ -123,8 +123,8 @@ public class LocalizationCamera {
                     }
                 }
 
-                SmartDashboard.putNumber("vision/" + m_camera + "Alternate Target X", m_apriltagTarget.getBestCameraToTarget().getX());
-                SmartDashboard.putNumber("vision/" + m_camera + "Alternate Target Y", m_apriltagTarget.getBestCameraToTarget().getY());
+                SmartDashboard.putNumber("vision/" + m_cameraName + "Alternate Target X", m_apriltagTarget.getBestCameraToTarget().getX());
+                SmartDashboard.putNumber("vision/" + m_cameraName + "Alternate Target Y", m_apriltagTarget.getBestCameraToTarget().getY());
 
                 if (m_apriltagTarget.getPoseAmbiguity() > VisionConstants.MAX_POSE_AMBIGUITY) {
                     SmartDashboard.putString("vision/" + m_cameraName + "/targetState", "targetDiscardedAmbiguity");
