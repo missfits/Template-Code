@@ -40,7 +40,7 @@ public class LocalizationCamera {
   private PhotonPoseEstimator poseEstimator;
 
   private PhotonTrackedTarget m_apriltagTarget;
-  private ArrayList<EstimatedRobotPose> m_lastEstPoses = new ArrayList<>();
+  private LinkedList<EstimatedRobotPose> m_lastEstPoses = new LinkedList<>();
 
   public LocalizationCamera(String cameraName, Transform3d robotToCam) {
     m_cameraName = cameraName;
@@ -151,7 +151,7 @@ public class LocalizationCamera {
                 // update our last n poses
                 m_lastEstPoses.add(estimatedRobotPose);
                 if (m_lastEstPoses.size() > VisionConstants.NUM_LAST_EST_POSES) {
-                  m_lastEstPoses.remove(0);
+                  m_lastEstPoses.removeFirst();
                 }
 
                 SmartDashboard.putString("vision/" + m_cameraName + "/targetState", "targetFound");
