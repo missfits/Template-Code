@@ -215,7 +215,7 @@ public class LocalizationCamera {
 
         avgDist /= numTags;
         // increase std devs based on (average) distance
-        curStdDevs = unscaledStdDevs.times(1 + (avgDist * avgDist / 30));
+        curStdDevs = unscaledStdDevs.times(1 + (avgDist * avgDist / VisionConstants.STD_DEV_SCALER));
         SmartDashboard.putString("vision/" + m_cameraName + "/standardDeviation-state", "good :)");
       }
       SmartDashboard.putNumber("vision/" + m_cameraName + "/standardDeviation-average-distance", avgDist);
