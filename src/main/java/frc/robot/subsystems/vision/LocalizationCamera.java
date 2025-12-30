@@ -29,7 +29,6 @@ public class LocalizationCamera {
   private final PhotonCamera m_camera;
   private final String m_cameraName;
 
-  private Translation2d targetTranslation2d = new Translation2d(0, 0); // distance to the target; updated every periodic() call if target is found
   private boolean targetFound; // true if the translation2d was updated last periodic() call
   private EstimatedRobotPose estimatedRobotPose;
   private boolean isNewResult = false;
@@ -171,9 +170,6 @@ public class LocalizationCamera {
         SmartDashboard.putNumberArray("vision/" + m_cameraName + "/Targets Seen", apriltagIDs.stream().mapToDouble(Integer::doubleValue).toArray());
         SmartDashboard.putNumberArray("vision/" + m_cameraName + "/Target Pose Ambiguities", targetPoseAmbiguity.stream().mapToDouble(Double::doubleValue).toArray());
         SmartDashboard.putBoolean("vision/" + m_cameraName + "/Target Found", targetFound);
-
-        SmartDashboard.putNumber("vision/" + m_cameraName + "/Target X Distance", targetTranslation2d.getX());
-        SmartDashboard.putNumber("vision/" + m_cameraName + "/Target Y Distance", targetTranslation2d.getY());
 
         SmartDashboard.putBoolean("vision/" + m_cameraName + "/isEstPoseJumpy", isEstPoseJumpy());
         SmartDashboard.putNumberArray("vision/" + m_cameraName + "/standardDeviations", curStdDevs.getData());
