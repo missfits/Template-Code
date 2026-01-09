@@ -56,4 +56,12 @@ public final class Constants {
     public static final double ROTATION_KI = 0.0;
     public static final double ROTATION_KD = 0.0;
   }
+
+  //placeholder constants
+  public static class LEDConstants {
+    public static final int KPORT = 0;
+    public static final int KLENGTH = 60;
+
+    public static final double BLINK_TIME = 1; // in seconds for after intake/outtake
+  }
 }
