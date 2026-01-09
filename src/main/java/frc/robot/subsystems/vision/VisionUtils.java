@@ -27,10 +27,7 @@ public class VisionUtils {
 
     // sanity check: does the pose "read" by vision make sense? (based on predetermined maximum constants)
     public static boolean poseIsSane(Pose3d pose) {
-        return pose.getZ() < VisionConstants.MAX_VISION_POSE_Z 
-        && pose.getRotation().getX() < VisionConstants.MAX_VISION_POSE_ROLL 
-        && pose.getRotation().getY() < VisionConstants.MAX_VISION_POSE_PITCH;
-
+        return zIsSane(pose) && rollIsSane(pose) && pitchIsSane(pose);
     }
 
     public static boolean zIsSane(Pose3d pose) {
