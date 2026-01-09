@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 
@@ -80,6 +81,14 @@ public final class Constants {
     public static final double MAX_AVG_SPEED_BETWEEN_LAST_EST_POSES = MAX_AVG_DIST_BETWEEN_LAST_EST_POSES * 50.;
     public static final int NUM_LAST_EST_POSES = 3;
     public static final double STD_DEV_SCALER = 30;
+
+
+    // --- vision subsystem ---
+    // (camera setup)
+    public static final String CAMERA1_NAME = null;
+    public static final String CAMERA2_NAME = null;
+    public static final Transform3d ROBOT_TO_CAM1_3D = null;
+    public static final Transform3d ROBOT_TO_CAM2_3D = null;
 
   }
 }
