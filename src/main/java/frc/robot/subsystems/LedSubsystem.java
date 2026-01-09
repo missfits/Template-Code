@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 
-public class LedSubsystem extends SubsystemBase {
+public class LEDSubsystem extends SubsystemBase {
   private final AddressableLED m_led;
   private final AddressableLEDBuffer m_ledBuffer;
 
   /** Called once at the beginning of the robot program. */
-  public LedSubsystem() {
+  public LEDSubsystem() {
     // PWM port 9
     // Must be a PWM header, not MXP or DIO
     m_led = new AddressableLED(LEDConstants.KPORT);
