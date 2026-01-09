@@ -144,21 +144,31 @@ public class LocalizationCamera {
       
               // update standard deviation based on dist 
               this.updateEstimationStdDevs(poseEstimatorOutput, result.getTargets());
-      
+                            
               if (poseEstimatorOutput.isPresent() && VisionUtils.poseIsSane(poseEstimatorOutput.get().estimatedPose)) {
-                estimatedRobotPose = poseEstimatorOutput.get(); 
-      
-                // update our last n poses
-                m_lastEstPoses.add(estimatedRobotPose);
+                // Temporarily add new pose to history to check if it makes the sequence jumpy
+                m_lastEstPoses.add(poseEstimatorOutput.get());
+                
                 if (m_lastEstPoses.size() > VisionConstants.NUM_LAST_EST_POSES) {
                   m_lastEstPoses.removeFirst();
                 }
 
-                SmartDashboard.putString("vision/" + m_cameraName + "/targetState", "targetFound");
+                // Check if the pose estimate is jumpy (indicates bad data or camera shift)
+                if (isEstPoseJumpy()) {
+                  // reject pose by removing from history m_lastEstPoses
+                  m_lastEstPoses.removeLast();
+                  estimatedRobotPose = null; // resets estimatedRobotPose to null if jumpy; stops processing in updatePoseEst
+                  SmartDashboard.putString("vision/" + m_cameraName + "/targetState", "targetDiscardedJumpy");
+                } else {
+                  // accept pose by changing instance var estimatedRobotPose
+                  estimatedRobotPose = poseEstimatorOutput.get();
+                  SmartDashboard.putString("vision/" + m_cameraName + "/targetState", "targetFound");
+                }
+
                 SmartDashboard.putBoolean("vision/" + m_cameraName + "/zIsSane", VisionUtils.zIsSane(poseEstimatorOutput.get().estimatedPose));
                 SmartDashboard.putBoolean("vision/" + m_cameraName + "/rollIsSane", VisionUtils.rollIsSane(poseEstimatorOutput.get().estimatedPose));
                 SmartDashboard.putBoolean("vision/" + m_cameraName + "/pitchIsSane", VisionUtils.pitchIsSane(poseEstimatorOutput.get().estimatedPose));
-              }      
+              }
             }
             else{
               isNewResult = false;
@@ -238,8 +248,9 @@ public class LocalizationCamera {
       totalTime += Math.abs(m_lastEstPoses.get(i).timestampSeconds - m_lastEstPoses.get(i+1).timestampSeconds);
     }
 
-    double avgDist = totalDistance / m_lastEstPoses.size();
-    double avgTime = totalTime / m_lastEstPoses.size();
+    // divide by number of intervals (n-1)
+    double avgDist = totalDistance / (m_lastEstPoses.size() - 1);
+    double avgTime = totalTime / (m_lastEstPoses.size() - 1);
     if (avgTime == 0){
       return true;
     }
