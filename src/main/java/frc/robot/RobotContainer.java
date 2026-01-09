@@ -47,7 +47,7 @@ public class RobotContainer {
 
     // Configure auto builder
     createNamedCommands();
-    m_autoChooser = AutoBuilder.buildAutoChooser();
+    m_autoChooser = AutoBuilder.buildAutoChooser("drive forward 1m");
     SmartDashboard.putData("Auto Chooser", m_autoChooser);
 
     // Data logging
@@ -81,9 +81,7 @@ public class RobotContainer {
   /**
    * Define named commands for autonomous paths
    */
-  private void createNamedCommands() {
-    // Add named commands here
-  }
+  private void createNamedCommands() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
