@@ -8,7 +8,9 @@ import frc.robot.commands.Autos;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drivetrain.CommandSwerveDrivetrain;
 import frc.robot.subsystems.drivetrain.DrivetrainCommandFactory;
+import frc.robot.subsystems.drivetrain.Telemetry;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.DrivetrainConstants;
 
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -30,6 +32,7 @@ public class RobotContainer {
   public record JoystickVals(double x, double y) {}
 
   private final SendableChooser<Command> m_autoChooser; // Sendable chooser that holds the autos
+  private final Telemetry logger = new Telemetry(DrivetrainConstants.MAX_TRANSLATION_SPEED);
 
   // Subsystems
   public final CommandSwerveDrivetrain m_drivetrain = TunerConstants.createDrivetrain();
@@ -76,6 +79,8 @@ public class RobotContainer {
         new JoystickVals(m_driverJoystick.getRightX(), m_driverJoystick.getRightY()),
         true)
     );
+
+    m_drivetrain.registerTelemetry(logger::telemeterize);
   }
 
   /**
