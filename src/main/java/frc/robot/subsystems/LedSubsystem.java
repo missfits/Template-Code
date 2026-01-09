@@ -1,13 +1,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.units.Units;
-
-import static edu.wpi.first.units.Units.Centimeters;
-import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.Percent;
 import static edu.wpi.first.units.Units.Second;
 
-import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -41,15 +37,13 @@ public class LedSubsystem extends SubsystemBase {
     // Set the default command to turn the strip off, otherwise the last colors written by
     // the last command to run will continue to be displayed.
     // Note: Other default patterns could be used instead!
-    setDefaultCommand((runScrollingRedBlueCommand()).withName("Off"));
+    setDefaultCommand((runScrollingYellowBlueCommand()).withName("LED/default colors"));
   }
 
 
   @Override
   public void periodic() {
     // Periodically send the latest LED color data to the LED strip for it to display
-
-
     m_led.setData(m_ledBuffer);
   }
 
@@ -63,57 +57,58 @@ public class LedSubsystem extends SubsystemBase {
   }
 
   public Command runBlinkGreen() {
-    return runPattern(LEDPattern.solid(Color.kGreen).blink(Time.ofBaseUnits(0.25, Units.Seconds)));
+    return runPattern(LEDPattern.solid(Color.kGreen).blink(Time.ofBaseUnits(0.25, Units.Seconds)))
+      .withName("LED/blink green");
   }
 
   public Command runSolidYellow() {
-    return runPattern(LEDPattern.solid(Color.kYellow));
+    return runPattern(LEDPattern.solid(Color.kYellow))
+      .withName("LED/solid yellow");
   }
 
   public Command runSolidBlue() {
-    return runPattern(LEDPattern.solid(Color.kDarkBlue));
+    return runPattern(LEDPattern.solid(Color.kDarkBlue))
+      .withName("LED/solid blue");
   }
 
   public Command runSolidOrange() {
-    return runPattern(LEDPattern.solid(Color.kOrange));
+    return runPattern(LEDPattern.solid(Color.kOrange))
+      .withName("LED/solid orange");
   }
 
   public Command runSolidGreen() {
-    return runPattern(LEDPattern.solid(Color.kGreen));
+    return runPattern(LEDPattern.solid(Color.kGreen))
+      .withName("LED/solid green");
   }
 
   public Command runSolidRed() {
-    return runPattern(LEDPattern.solid(Color.kRed));
+    return runPattern(LEDPattern.solid(Color.kRed))
+      .withName("LED/solid red");
   }
 
   public Command runSolidWhite() {
-    return runPattern(LEDPattern.solid(Color.kWhite));
+    return runPattern(LEDPattern.solid(Color.kWhite))
+      .withName("LED/solid white");
   }
 
   public Command runSolidPink() {
-    return runPattern(LEDPattern.solid(Color.kPink));
+    return runPattern(LEDPattern.solid(Color.kPink))
+      .withName("LED/solid pink");
   }
 
   public Command runSolidPurple() {
-    return runPattern(LEDPattern.solid(Color.kPurple));
+    return runPattern(LEDPattern.solid(Color.kPurple))
+      .withName("LED/solid purple");
   }
   
-  public Command runGradientBlueYellow(){
+  public Command runGradientBlueYellow() {
     LEDPattern gradient = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, Color.kYellow, Color.kBlue);
-    return runPattern(gradient);
+    return runPattern(gradient).withName("LED/gradient blue-yellow");
   }
 
-  public Command runGradientGreenYellow(){
-    LEDPattern gradient = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, Color.kYellow, Color.kGreen).scrollAtRelativeSpeed(Percent.per(Second).of(100));
-    return runPattern(gradient);
-  }
-
-  public Command runScrollingRedBlueCommand(){
-    Distance ledSpacing = Meters.of(1 / 60.0);
-    LEDPattern base = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, Color.kRed, Color.kBlue);
+  public Command runScrollingYellowBlueCommand() {
+    LEDPattern base = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, Color.kYellow, Color.kBlue);
     LEDPattern pattern = base.scrollAtRelativeSpeed(Percent.per(Second).of(100));
-    LEDPattern absolute = base.scrollAtAbsoluteSpeed(Centimeters.per(Second).of(6.25), ledSpacing);
-    return runPattern(pattern);
+    return runPattern(pattern).withName("LED/scrolling yellow-blue");
   }
-
 }
