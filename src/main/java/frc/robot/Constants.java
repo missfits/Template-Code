@@ -56,4 +56,13 @@ public final class Constants {
     public static final double ROTATION_KI = 0.0;
     public static final double ROTATION_KD = 0.0;
   }
+
+  public static class MechanismConstants{
+    //NEED TO BE CHANGED
+    public static final int MECHANISM_MOTOR_ID = 0;
+    public static final int MOTOR_STATOR_LIMIT = 0;
+
+    public static final double DEGREES_PER_ROTATION = 0;
+
+  }
 }
