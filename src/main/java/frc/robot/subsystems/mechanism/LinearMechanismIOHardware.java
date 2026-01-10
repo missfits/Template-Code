@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -18,21 +19,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants.MechanismConstants;
+import frc.robot.Constants.LinearMechanismConstants;
 
 
-public class MechanismIOHardware {
-  private final TalonFX m_motorName = new TalonFX(MechanismConstants.MECHANISM_MOTOR_ID);
+public class LinearMechanismIOHardware {
+  private final TalonFX m_motorName = new TalonFX(LinearMechanismConstants.MECHANISM_MOTOR_ID);
   private final StatusSignal<Angle> m_positionSignal = m_motorName.getPosition();
   private final StatusSignal<AngularVelocity> m_velocitySignal = m_motorName.getVelocity();
   private final StatusSignal<Current> m_currentSignal = m_motorName.getStatorCurrent();
 
   // constructor
-  public MechanismIOHardware() {
+  public LinearMechanismIOHardware() {
       var talonFXConfigurator = m_motorName.getConfigurator();
       var limitConfigs = new CurrentLimitsConfigs();
 
-      limitConfigs.StatorCurrentLimit = MechanismConstants.MOTOR_STATOR_LIMIT;
+      limitConfigs.StatorCurrentLimit = LinearMechanismConstants.MOTOR_STATOR_LIMIT;
       limitConfigs.StatorCurrentLimitEnable = true;
 
       talonFXConfigurator.apply(limitConfigs);
@@ -40,12 +41,12 @@ public class MechanismIOHardware {
 
   // getters
   public double getPosition() {
-      return Math.toRadians(m_positionSignal.refresh().getValue().in(Revolutions)*MechanismConstants.DEGREES_PER_ROTATION);
+    return m_positionSignal.refresh().getValue().in(Revolutions)*LinearMechanismConstants.METERS_PER_ROTATION;
   }
 
   public double getVelocity() {
-      return Math.toRadians(m_velocitySignal.refresh().getValue().in(RevolutionsPerSecond)*MechanismConstants.DEGREES_PER_ROTATION);
-  }
+    return m_velocitySignal.refresh().getValue().in(RevolutionsPerSecond)*LinearMechanismConstants.METERS_PER_ROTATION;
+}
 
   public double getCurrent() {
       return m_currentSignal.refresh().getValue().in(Amps);
@@ -66,6 +67,11 @@ public class MechanismIOHardware {
 
   public void setVoltage(double value) {
       m_motorName.setControl(new VoltageOut(value));
-      SmartDashboard.putNumber("mechanism/voltage", value);
+      SmartDashboard.putNumber("linear mechanism/voltage", value);
+  }
+
+  public void setVelocity(double value){
+    m_motorName.setControl(new VelocityVoltage(value));
+    SmartDashboard.putNumber("linear mechanism/velocity voltage", value);
   }
 }
