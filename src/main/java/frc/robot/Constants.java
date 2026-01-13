@@ -63,7 +63,6 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-
     // --- vision utils ---
     public static final double MAX_VISION_POSE_DISTANCE = 1;
     public static final double MAX_VISION_POSE_Z = 0.1;
@@ -82,13 +81,18 @@ public final class Constants {
     public static final int NUM_LAST_EST_POSES = 3;
     public static final double STD_DEV_SCALER = 30;
 
-
     // --- vision subsystem ---
     // (camera setup)
     public static final String CAMERA1_NAME = null;
     public static final String CAMERA2_NAME = null;
     public static final Transform3d ROBOT_TO_CAM1_3D = null;
     public static final Transform3d ROBOT_TO_CAM2_3D = null;
+  }
+  
+  public static class LEDConstants { // placeholder constants
+    public static final int KPORT = 0;
+    public static final int KLENGTH = 60;
 
+    public static final double BLINK_TIME = 1; // in seconds for after intake/outtake
   }
 }
