@@ -70,7 +70,8 @@ public final class Constants {
     public static final int MOTOR_STATOR_LIMIT = 0;
 
     public static final double METERS_PER_ROTATION = 0;
-
+  }
+  
   public static class LEDConstants {
     public static final int KPORT = 0;
     public static final int KLENGTH = 60;
