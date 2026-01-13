@@ -30,13 +30,13 @@ public class LinearMechanismIOHardware {
 
   // constructor
   public LinearMechanismIOHardware() {
-      var talonFXConfigurator = m_motorName.getConfigurator();
-      var limitConfigs = new CurrentLimitsConfigs();
+    var talonFXConfigurator = m_motorName.getConfigurator();
+    var limitConfigs = new CurrentLimitsConfigs();
 
-      limitConfigs.StatorCurrentLimit = LinearMechanismConstants.MOTOR_STATOR_LIMIT;
-      limitConfigs.StatorCurrentLimitEnable = true;
+    limitConfigs.StatorCurrentLimit = LinearMechanismConstants.MOTOR_STATOR_LIMIT;
+    limitConfigs.StatorCurrentLimitEnable = true;
 
-      talonFXConfigurator.apply(limitConfigs);
+    talonFXConfigurator.apply(limitConfigs);
   }
 
   // getters
@@ -46,31 +46,31 @@ public class LinearMechanismIOHardware {
 
   public double getVelocity() {
     return m_velocitySignal.refresh().getValue().in(RevolutionsPerSecond)*LinearMechanismConstants.METERS_PER_ROTATION;
-}
+  }
 
   public double getCurrent() {
-      return m_currentSignal.refresh().getValue().in(Amps);
+    return m_currentSignal.refresh().getValue().in(Amps);
   }
 
   // setters
   public void motorOff() {
-      m_motorName.stopMotor();
+    m_motorName.stopMotor();
   }
 
   public void setPosition(double value) {
-      m_motorName.setPosition(value);
+    m_motorName.setPosition(value);
   }
 
-  public void resetPosition(){
+  public void resetPosition() {
     setPosition(0);
   }
 
   public void setVoltage(double value) {
-      m_motorName.setControl(new VoltageOut(value));
-      SmartDashboard.putNumber("linear mechanism/voltage", value);
+    m_motorName.setControl(new VoltageOut(value));
+    SmartDashboard.putNumber("linear mechanism/voltage", value);
   }
 
-  public void setVelocityVoltage(double value){
+  public void setVelocityVoltage(double value) {
     m_motorName.setControl(new VelocityVoltage(value));
     SmartDashboard.putNumber("linear mechanism/velocity voltage", value);
   }

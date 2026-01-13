@@ -30,47 +30,47 @@ public class AngularMechanismIOHardware {
 
   // constructor
   public AngularMechanismIOHardware() {
-      var talonFXConfigurator = m_motorName.getConfigurator();
-      var limitConfigs = new CurrentLimitsConfigs();
+    var talonFXConfigurator = m_motorName.getConfigurator();
+    var limitConfigs = new CurrentLimitsConfigs();
 
-      limitConfigs.StatorCurrentLimit = AngularMechanismConstants.MOTOR_STATOR_LIMIT;
-      limitConfigs.StatorCurrentLimitEnable = true;
+    limitConfigs.StatorCurrentLimit = AngularMechanismConstants.MOTOR_STATOR_LIMIT;
+    limitConfigs.StatorCurrentLimitEnable = true;
 
-      talonFXConfigurator.apply(limitConfigs);
+    talonFXConfigurator.apply(limitConfigs);
   }
 
   // getters
   public double getPosition() {
-      return Math.toRadians(m_positionSignal.refresh().getValue().in(Revolutions)*AngularMechanismConstants.DEGREES_PER_ROTATION);
+    return Math.toRadians(m_positionSignal.refresh().getValue().in(Revolutions)*AngularMechanismConstants.DEGREES_PER_ROTATION);
   }
 
   public double getVelocity() {
-      return Math.toRadians(m_velocitySignal.refresh().getValue().in(RevolutionsPerSecond)*AngularMechanismConstants.DEGREES_PER_ROTATION);
+    return Math.toRadians(m_velocitySignal.refresh().getValue().in(RevolutionsPerSecond)*AngularMechanismConstants.DEGREES_PER_ROTATION);
   }
 
   public double getCurrent() {
-      return m_currentSignal.refresh().getValue().in(Amps);
+    return m_currentSignal.refresh().getValue().in(Amps);
   }
 
   // setters
   public void motorOff() {
-      m_motorName.stopMotor();
+    m_motorName.stopMotor();
   }
 
   public void setPosition(double value) {
-      m_motorName.setPosition(value);
+    m_motorName.setPosition(value);
   }
 
-  public void resetPosition(){
+  public void resetPosition() {
     setPosition(0);
   }
 
   public void setVoltage(double value) {
-      m_motorName.setControl(new VoltageOut(value));
-      SmartDashboard.putNumber("angular mechanism/voltage", value);
+    m_motorName.setControl(new VoltageOut(value));
+    SmartDashboard.putNumber("angular mechanism/voltage", value);
   }
 
-  public void setVelocityVoltage(double value){
+  public void setVelocityVoltage(double value) {
     m_motorName.setControl(new VelocityVoltage(value));
     SmartDashboard.putNumber("angular mechanism/velocity voltage", value);
   }
