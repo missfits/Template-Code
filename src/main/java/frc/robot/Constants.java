@@ -57,8 +57,7 @@ public final class Constants {
     public static final double ROTATION_KD = 0.0;
   }
 
-  public static class AngularMechanismConstants{
-    //NEED TO BE CHANGED
+  public static class AngularMechanismConstants {
     public static final int MECHANISM_MOTOR_ID = 0;
     public static final int MOTOR_STATOR_LIMIT = 0;
 
@@ -66,12 +65,16 @@ public final class Constants {
 
   }
 
-  public static class LinearMechanismConstants{
-    //NEED TO BE CHANGED
+  public static class LinearMechanismConstants {
     public static final int MECHANISM_MOTOR_ID = 0;
     public static final int MOTOR_STATOR_LIMIT = 0;
 
     public static final double METERS_PER_ROTATION = 0;
 
+  public static class LEDConstants {
+    public static final int KPORT = 0;
+    public static final int KLENGTH = 60;
+
+    public static final double BLINK_TIME = 1; // in seconds for after intake/outtake
   }
 }
