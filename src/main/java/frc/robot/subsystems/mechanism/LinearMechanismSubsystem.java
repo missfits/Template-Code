@@ -10,7 +10,7 @@ public class LinearMechanismSubsystem extends SubsystemBase {
     private final LinearMechanismIOHardware m_IO = new LinearMechanismIOHardware();
 
     public LinearMechanismSubsystem() {
-        m_IO.resetPosition();
+        resetPosition();
     }
 
     public void resetPosition() {

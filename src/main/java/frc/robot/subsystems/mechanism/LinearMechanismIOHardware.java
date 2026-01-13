@@ -70,7 +70,7 @@ public class LinearMechanismIOHardware {
       SmartDashboard.putNumber("linear mechanism/voltage", value);
   }
 
-  public void setVelocity(double value){
+  public void setVelocityVoltage(double value){
     m_motorName.setControl(new VelocityVoltage(value));
     SmartDashboard.putNumber("linear mechanism/velocity voltage", value);
   }

@@ -10,7 +10,7 @@ public class AngularMechanismSubsystem extends SubsystemBase {
     private final AngularMechanismIOHardware m_IO = new AngularMechanismIOHardware();
 
     public AngularMechanismSubsystem() {
-        m_IO.resetPosition();
+        resetPosition();
     }
 
     public void resetPosition() {
